@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.example.springlab.dao.StudentDAO">
+	<select id="listAll" resultType="edu.example.springlab.domain.StudentDTO">
+		select name, score from student
+	</select>
+	<select id="listOrderByScoreDesc" resultType="edu.example.springlab.domain.StudentDTO">
+		select name, score from student order by score desc
+	</select>
+	<select id="listByScoreGreaterEqualThan" resultType="edu.example.springlab.domain.StudentDTO" parameterType="_int">
+		<![CDATA[
+		select name, score from student where score
+			>= #{score} order by score desc
+		]]> 
+	</select>
+	<select id="listByContainName" resultType="edu.example.springlab.domain.StudentDTO" parameterType="String">
+  		select name, score from student where name like '%' || #{keyword} || '%'
+	</select>
+	<select id="getScore" resultType="_int" parameterType="String">
+		select score from student where name = #{name}
+	</select>
+	<select id="getScoreAvg" resultType="float">
+		select avg(score) from student
+	</select>
+</mapper>
